@@ -8,6 +8,7 @@
 </head>
 <body>
     <main class="container">
+        <audio id="notification-sound" src="notification.wav" preload="auto"></audio>
         <h1>🍅 Pomodoro Timer</h1>
         <div id="timer-display">25:00</div>
         <div class="status" id="status">Ready to work!</div>
@@ -18,6 +19,38 @@
         </div>
         <div class="controls">
             <button id="settings-btn" disabled aria-label="Open settings">Settings</button>
+        </div>
+        <!-- Settings Panel (hidden by default) -->
+        <div id="settings-panel" class="settings-panel" style="display: none;">
+            <h2>Settings</h2>
+            <form id="settings-form">
+                <label>
+                    Work Duration (minutes):
+                    <input type="number" id="work-duration" min="1" max="60" value="25" required />
+                </label>
+                <label>
+                    Short Break (minutes):
+                    <input type="number" id="short-break-duration" min="1" max="30" value="5" required />
+                </label>
+                <label>
+                    Long Break (minutes):
+                    <input type="number" id="long-break-duration" min="1" max="60" value="15" required />
+                </label>
+                <label>
+                    Sessions Before Long Break:
+                    <input type="number" id="sessions-before-long-break" min="1" max="10" value="4" required />
+                </label>
+                <label>
+                    <input type="checkbox" id="auto-start-work" /> Auto-start Work Sessions
+                </label>
+                <label>
+                    <input type="checkbox" id="auto-start-breaks" /> Auto-start Breaks
+                </label>
+                <div class="settings-actions">
+                    <button type="submit" id="save-settings-btn">Save</button>
+                    <button type="button" id="cancel-settings-btn">Cancel</button>
+                </div>
+            </form>
         </div>
     </main>
 

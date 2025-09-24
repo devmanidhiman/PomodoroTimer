@@ -1,3 +1,13 @@
+/* Session-specific backgrounds for visual feedback */
+.work-session {
+    background-color: #fffbe6;
+}
+.short-break-session {
+    background-color: #e0f7fa;
+}
+.long-break-session {
+    background-color: #e8f5e9;
+}
 body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         margin: 0;

@@ -59,6 +59,11 @@ export class PomodoroTimer {
         this.state.currentSession = SessionType.Work;
     }
 
+    updateSettings(newSettings: Settings){
+        this.settings = { ...newSettings };
+        this.reset();
+    }
+
     nextSession() {
         if (this.state.currentSession === SessionType.Work) {
             this.state.completedSessions++;
@@ -88,5 +93,10 @@ export class PomodoroTimer {
 
     getState() {
         return { ...this.state };
+    }
+    getTimeRemaining() {
+        const minutes = Math.floor(this.state.timeLeft / 60).toString().padStart(2, '0');
+        const seconds = (this.state.timeLeft % 60).toString().padStart(2, '0');
+        return `${minutes}:${seconds}`;
     }
 }
