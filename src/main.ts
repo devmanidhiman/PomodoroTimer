@@ -1,23 +1,51 @@
-// Basic entry point to test our setup
-console.log('🍅 Pomodoro Timer TypeScript Setup Complete!');
+import { PomodoroTimer } from "./models/PomodoroTimer"; 
 
-// Simple DOM test
+const timerDisplay = document.getElementById('timer-display');
+const statusEl = document.getElementById('status');
+const startButton = document.getElementById('start-btn');
+const pauseButton = document.getElementById('pause-btn');
+const resetButton = document.getElementById('reset-btn');
+const settingsButton = document.getElementById('settings-btn');
+
+
 document.addEventListener('DOMContentLoaded', () => {
-  const timerDisplay = document.getElementById('timer-display');
   if (timerDisplay) {
     console.log('✅ DOM elements found successfully');
   }
 });
 
-// Type checking test
-interface TestInterface {
-  message: string;
-  timestamp: Date;
+const pomodoro = new PomodoroTimer();
+
+function updateDisplay() {
+  if (timerDisplay) {
+    timerDisplay.textContent = pomodoro.getTimeRemaining();
+  }
+}
+setInterval(updateDisplay, 1000);
+
+if (startButton) {
+  startButton.addEventListener('click', () => {
+    pomodoro.start();
+    if (statusEl) statusEl.textContent = 'Running';
+  });
 }
 
-const testData: TestInterface = {
-  message: 'TypeScript is working!',
-  timestamp: new Date(),
-};
+if (pauseButton) {
+  pauseButton.addEventListener('click', () => {
+    pomodoro.pause();
+    if (statusEl) statusEl.textContent = 'Paused';
+  });
+}
 
-console.log('TypeScript Test:', testData);
+if (resetButton) {
+  resetButton.addEventListener('click', () => {
+    pomodoro.reset();
+    if (statusEl) statusEl.textContent = 'Stopped';
+  });
+}
+
+if (settingsButton) {
+  settingsButton.addEventListener('click', () => {
+    // Open settings modal or panel
+  });
+}

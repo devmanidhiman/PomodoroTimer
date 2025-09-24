@@ -33,7 +33,6 @@ export class PomodoroTimer {
             } else {
                 this.pause();
                 this.nextSession();
-                // Logic to handle session completion and transition
             }
         }, 1000);
     }
@@ -50,11 +49,14 @@ export class PomodoroTimer {
     }
 
     reset() {
+        if (this.timerId) {
+            clearInterval(this.timerId);
+            this.timerId = null;
+        }
         this.state.isRunning = false;
         this.state.timeLeft = this.settings.workDuration * 60;
         this.state.completedSessions = 0;
         this.state.currentSession = SessionType.Work;
-        // Logic to reset the timer
     }
 
     nextSession() {
