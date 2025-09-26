@@ -5,6 +5,7 @@ export class PomodoroTimer {
     private state: PomodoroState;
     private settings: Settings;
     private timerId: number | null = null;
+    private onSessionEndCallBack?: () => void;
     constructor(settings: Settings) {
         this.settings = settings || {
             workDuration: 25,
@@ -22,6 +23,10 @@ export class PomodoroTimer {
         };
     }
 
+    public onSessionEnd(callback: () => void) {
+        this.onSessionEndCallBack = callback;
+    }
+
     start() {
         if (this.state.isRunning) return; // Prevent multiple timers
         this.state.isRunning = true;
@@ -31,6 +36,9 @@ export class PomodoroTimer {
             if (this.state.timeLeft > 0) {
                 this.state.timeLeft--;
             } else {
+                if (this.onSessionEndCallBack) {
+                    this.onSessionEndCallBack();
+                }
                 this.pause();
                 this.nextSession();
             }

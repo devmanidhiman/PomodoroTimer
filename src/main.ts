@@ -16,9 +16,8 @@ const longBreakInput = document.getElementById('long-break-duration') as HTMLInp
 const sessionsBeforeLongBreakInput = document.getElementById('sessions-before-long-break') as HTMLInputElement | null;
 const autoStartWorkInput = document.getElementById('auto-start-work') as HTMLInputElement | null;
 const autoStartBreaksInput = document.getElementById('auto-start-breaks') as HTMLInputElement | null;
-const saveSettingsBtn = document.getElementById('save-settings-btn') as HTMLButtonElement | null;
 const cancelSettingsBtn = document.getElementById('cancel-settings-btn') as HTMLButtonElement | null;
-const notificationSound = document.getElementById('notification-sound') as HTMLAudioElement | null;
+const notificationSound = document.getElementById('notification-sound') as HTMLAudioElement;
 
 const defaultSettings = {
   workDuration: 25,
@@ -36,7 +35,15 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const pomodoro = new PomodoroTimer(defaultSettings);
+pomodoro.onSessionEnd(() => {
+  if (notificationSound) {
+    notificationSound.currentTime = 0;
+    notificationSound.play();
+    notificationSound.play();
+  }
+});
 let lastTimeLeft = pomodoro.getState().timeLeft;
+
 
 function updateDisplay() {
   if (timerDisplay) {
@@ -72,6 +79,7 @@ function updateDisplay() {
       container.classList.add('long-break-session');
     }
   }
+  
   if (!isRunning && timeLeft === 0) {
     if (lastTimeLeft > 0 && timeLeft === 0 && notificationSound) {
       notificationSound.currentTime = 0;
@@ -106,7 +114,9 @@ if (resetButton) {
 
 if (settingsButton) {
   settingsButton.addEventListener('click', () => {
-    // Open settings modal or panel
+    if (settingsPanel) {
+      settingsPanel.style.display = 'block';
+    }
   });
 }
 
