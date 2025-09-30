@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Pomodoro Timer",
+  "version": "1.0.0",
+  "description": "A simple Pomodoro Timer built with TypeScript to boost productivity.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Pomodoro Timer"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["activeTab", "notifications", "offscreen"],
+  "web_accessible_resources": [
+    {
+      "resources": ["notification.wav"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

@@ -1,17 +1,19 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vite'
 
 export default defineConfig({
-  root: './src',
   build: {
-    outDir: '../dist',
-    emptyOutDir: true,
+    outDir: 'dist',
     rollupOptions: {
-      input: {
-        popup: './src/index.html',
-      },
-    },
-  },
-  server: {
-    open: true,
-  },
-});
+      input: 'src/main.ts',
+      output: {
+        entryFileNames: 'main.js',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name?.endsWith('.css')) {
+            return 'styles.css';
+          }
+          return '[name].[ext]';
+        }
+      }
+    }
+  }
+})
